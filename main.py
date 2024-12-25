@@ -6,6 +6,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import yt
+import pprint as pp
 
 yt.set_log_level("ERROR")
 
@@ -73,8 +74,27 @@ def plot_Frad(ds, axis_on=True, ylim=None):
 def test_radiating_particles():
     data_dir = "quokka_data/radiating_particles/plt00032"
     ds = yt.load(data_dir)
-    print("ds.field_list =")
-    print(ds.field_list)
+    ad = ds.all_data()
+    print("\n\nds.field_list =")
+    pp.pprint(ds.field_list)
+    print("\n\nds.derived_field_list =")
+    pp.pprint(ds.derived_field_list)
+    print("\n\nds.parameters =")
+    pp.pprint(ds.parameters)
+
+    # print particle fields
+    print("\n\nad[('Rad_particles', 'birth_time')] =")
+    pp.pprint(ad[('Rad_particles', 'birth_time')])
+    print("\n\nad[('Rad_particles', 'death_time')] =")
+    pp.pprint(ad[('Rad_particles', 'death_time')])
+    print("\n\nad[('Rad_particles', 'luminosity')] =")
+    pp.pprint(ad[('Rad_particles', 'luminosity')])
+    # particle positions
+    print("\n\nad[('Rad_particles', 'particle_position_x')] =")
+    pp.pprint(ad[('Rad_particles', 'particle_position_x')])
+    print("\n\nad[('Rad_particles', 'particle_position_y')] =")
+    pp.pprint(ad[('Rad_particles', 'particle_position_y')])
+    return
 
     # plot slice
     p = plot_Erad(ds, axis_on=True, ylim=[1e-5, 2e1])
